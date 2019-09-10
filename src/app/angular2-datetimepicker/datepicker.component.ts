@@ -71,6 +71,10 @@ export class DatePicker implements OnInit, ControlValueAccessor {
         if (this.settings.defaultOpen) {
             this.popover = true;
         }
+        this.date = new Date();
+        this.monthDays = this.generateDays(this.date);
+        this.hourValue = this.date.getHours();
+        this.minValue = this.date.getMinutes();
     }
     private onTouchedCallback: () => {};
     private onChangeCallback: (_: any) => {};
@@ -279,7 +283,8 @@ export class DatePicker implements OnInit, ControlValueAccessor {
                 }
             }
             else {
-                this.date = new Date(selectedDay);
+                this.date.setDate(selectedDay.getDate());
+                this.date = new Date(this.date);
                 this.onChangeCallback(this.date.toString());
 
             }
@@ -389,7 +394,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
 
     validHour() {
         if (new RegExp('[^\D]').test(this.hourValue + '')) {
-            if (this.hourValue >= 24 || this.hourValue < 0) {
+            if (this.hourValue >= 24 || this.hourValue < 0 || this.hourValue == null) {
                 const date = new Date();
                 this.hourValue = date.getHours();
                 console.log(this.hourValue);
@@ -408,7 +413,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
 
     validMinutes() {
         if (new RegExp('[^\D]').test(this.hourValue + '')) {
-            if (this.minValue >= 60 || this.minValue < 0) {
+            if (this.minValue >= 60 || this.minValue < 0 || this.minValue == null) {
                 const date = new Date();
                 this.minValue = date.getMinutes();
                 console.log(this.minValue);

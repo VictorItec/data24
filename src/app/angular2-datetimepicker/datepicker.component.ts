@@ -117,7 +117,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
         this.onTouchedCallback = fn;
     }
     initDate(val: string) {
-        this.date = new Date(val);
+        /*this.date = new Date(val);
         if (this.date.getHours() <= 11) {
             this.hourValue = this.date.getHours();
             this.timeViewMeridian = "AM";
@@ -129,7 +129,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
         if (this.date.getHours() == 0 || this.date.getHours() == 12) {
             this.hourValue = 12;
         }
-        this.minValue = this.date.getMinutes();
+        this.minValue = this.date.getMinutes();*/
     }
     initDateRange(val: DateRange) {
         this.dateRange.startDate = new Date(val.startDate);
@@ -283,8 +283,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
                 }
             }
             else {
-                this.date.setDate(selectedDay.getDate());
-                this.date = new Date(this.date);
+                this.date = new Date(selectedDay);
                 this.onChangeCallback(this.date.toString());
 
             }
@@ -394,7 +393,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
 
     validHour() {
         if (new RegExp('[^\D]').test(this.hourValue + '')) {
-            if (this.hourValue >= 24 || this.hourValue < 0 || this.hourValue == null) {
+            if (this.hourValue >= 24 || this.hourValue < 0) {
                 const date = new Date();
                 this.hourValue = date.getHours();
                 console.log(this.hourValue);
@@ -413,7 +412,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
 
     validMinutes() {
         if (new RegExp('[^\D]').test(this.hourValue + '')) {
-            if (this.minValue >= 60 || this.minValue < 0 || this.minValue == null) {
+            if (this.minValue >= 60 || this.minValue < 0) {
                 const date = new Date();
                 this.minValue = date.getMinutes();
                 console.log(this.minValue);

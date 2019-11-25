@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="time-view-btn">
-            <button class="button" (click)="setTimeView()">Ok</button>
+            <button class="button" (click)="setTimeView()" (click)="$event.preventDefault()">Ok</button>
         </div>
     </div>
     <table class="calendar-days" (click)="setDay($event);" [hidden]="monthsView || yearView">
@@ -97,8 +97,8 @@
         </tr>
     </table>
     <div class="cal-util">
-        <div class="clock-icon" *ngIf="!settings.bigBanner">
-            <i class="fa fa-clock-o" aria-hidden="true" (click)="timeView = !timeView"></i>
+        <div (click)="timeView = !timeView" class="clock-icon ok" *ngIf="!settings.bigBanner">
+            <i class="fa fa-clock-o fa-lg" aria-hidden="true" ></i>
         </div>
         <div class="ok" (click)="done()"><i class="fa fa-check"></i>Ok
         </div>

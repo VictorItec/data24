@@ -58,7 +58,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
         cal_full_days_lables: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sàbado'],
         cal_months_labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
         cal_months_labels_short: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-
+        end_date: false,
         closeOnSelect: true,
         rangepicker: false
     }
@@ -73,8 +73,17 @@ export class DatePicker implements OnInit, ControlValueAccessor {
         }
         this.date = new Date();
         this.monthDays = this.generateDays(this.date);
-        this.hourValue = this.date.getHours();
-        this.minValue = this.date.getMinutes();
+        if (this.settings.end_date) {
+            this.hourValue = 23;
+            this.minValue = 59;
+            this.date.setHours(this.hourValue);
+            this.date.setMinutes(this.minValue);
+            this.date = new Date(this.date);
+        } else {
+            this.hourValue = this.date.getHours();
+            this.minValue = this.date.getMinutes();
+        }
+
     }
     private onTouchedCallback: () => {};
     private onChangeCallback: (_: any) => {};
@@ -262,6 +271,7 @@ export class DatePicker implements OnInit, ControlValueAccessor {
         this.date.setMinutes(this.minValue);
         this.date = new Date(this.date);
         this.timeView = !this.timeView;
+        this.done();
     }
 
     /***
